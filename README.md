@@ -1,4 +1,6 @@
-# Unitree Go2 — ROS 2 Navigation, Mapping and Low-level Control & Basic Vision-Language-Action
+# Unitree Go2 — Navegación, Mapeo, Control a bajo nivel y Vision-Language-Action Básico con ROS 2.
+
+Este es un fork del proyecto de StrikeRobot: [StrikeRobot/Go2-Nav_System](https://github.com/StrikeRobot/Go2-Nav_System), añadiendole comaptibilidad con el firmware >1.1.15 del Unitree Go2, basado en el proyecto [abizovnuralem/go2_ros2_sdk](https://github.com/abizovnuralem/go2_ros2_sdk).
 
 A ROS 2 workspace for the Unitree Go2 quadruped that pairs a classic navigation
 stack (SLAM Toolbox mapping + Nav2) with a **Vision-Language-Action (VLA)** layer:
@@ -6,6 +8,7 @@ the robot can be driven by typing a natural-language instruction instead of a
 joystick or a Nav2 goal. Two interchangeable VLA brains are included — a local
 **Qwen2.5-VL** reasoning loop and **NaVILA** (VILA-8B), a model purpose-trained
 for language-guided navigation.
+
 
 |Systems|ROS2 distro|Build status|
 |--|--|--|
@@ -72,6 +75,35 @@ Automatic Machine Inspection → STA Network: `wlan0`). Set it once in
 ```shell
 source install/setup.bash
 ```
+
+### Go2 firmware >= 1.1.15 (WebRTC local connection)
+
+Starting with Go2 firmware **1.1.15**, the robot wraps its RSA public key in the LAN handshake (`con_notify`) with a **per-device AES-128 key** (`data2 == 3`) instead of the older static key (`data2 == 2`). If you're on this firmware or newer and see:
+
+```
+Failed to complete encrypted handshake: Failed to load RSA public key: RSA key format is not supported
+```
+
+...you need to supply your robot's per-device AES-128 key via the `aes_key` parameter (or `ROBOT_AES_KEY` / `GO2_AES_KEY` environment variable):
+
+```shell
+export ROBOT_IP="robot_ip"
+export ROBOT_AES_KEY="32_hex_character_key"
+export CONN_TYPE="webrtc"
+ros2 launch go2_robot_sdk robot.launch.py
+```
+
+~~You can fetch this key with your Unitree account credentials using [`unitree_webrtc_connect`](https://github.com/legion1581/unitree_webrtc_connect)'s `fetch_aes_key.py` example or the `unitree-fetch-aes-key` CLI:~~
+~~This prints the AES-128 key (32 hex characters) for each robot registered to your account, keyed by serial number. If your robot is still on older firmware (`data2 == 2` or unencrypted), `aes_key` can be left unset.~~
+This no longer works for the time being, tere is currently no known way to fetch the AES key besides searching for it throught the robot's computer, wich is only an option for models X and EDU (as far as I know).
+
+```shell
+pip install unitree_webrtc_connect
+unitree-fetch-aes-key --email your@email.com --password 'yourpassword' --device-type Go2
+```
+
+
+
 
 ### Mapping
 
