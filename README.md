@@ -94,8 +94,8 @@ ros2 launch go2_robot_sdk robot.launch.py
 ```
 
 ~~You can fetch this key with your Unitree account credentials using [`unitree_webrtc_connect`](https://github.com/legion1581/unitree_webrtc_connect)'s `fetch_aes_key.py` example or the `unitree-fetch-aes-key` CLI:~~
-~~This prints the AES-128 key (32 hex characters) for each robot registered to your account, keyed by serial number. If your robot is still on older firmware (`data2 == 2` or unencrypted), `aes_key` can be left unset.~~
-This no longer works for the time being, tere is currently no known way to fetch the AES key besides searching for it throught the robot's computer, wich is only an option for models X and EDU (as far as I know).
+~~This prints the AES-128 key (32 hex characters) for each robot registered to your account, keyed by serial number.~~
+This no longer works for the time being, tere is currently no known way to fetch the AES key besides searching for it throught the robot's computer, wich is only an option for models X and EDU (as far as I know).  If your robot is still on older firmware (`data2 == 2` or unencrypted), `aes_key` can be left unset.
 
 ```shell
 pip install unitree_webrtc_connect
