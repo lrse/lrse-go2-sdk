@@ -1,6 +1,6 @@
 # Unitree Go2 — Navegación, Mapeo, Control a bajo nivel y Vision-Language-Action Básico con ROS 2.
 
-Este es un fork del proyecto de StrikeRobot: [StrikeRobot/Go2-Nav_System](https://github.com/StrikeRobot/Go2-Nav_System), añadiendole comaptibilidad con el firmware >1.1.15 del Unitree Go2, basado en el proyecto [abizovnuralem/go2_ros2_sdk](https://github.com/abizovnuralem/go2_ros2_sdk).
+Este es un fork del proyecto de StrikeRobot: [StrikeRobot/Go2-Nav_System](https://github.com/StrikeRobot/Go2-Nav_System), añadiendole compatibilidad con el firmware >1.1.15 del Unitree Go2, basado en el proyecto [abizovnuralem/go2_ros2_sdk](https://github.com/abizovnuralem/go2_ros2_sdk).
 
 A ROS 2 workspace for the Unitree Go2 quadruped that pairs a classic navigation
 stack (SLAM Toolbox mapping + Nav2) with a **Vision-Language-Action (VLA)** layer:
